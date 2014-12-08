@@ -1,6 +1,7 @@
 'use strict';
 var util = require('util');
 var net = require('net');
+var _ = require('lodash');
 var EventEmitter = require('events').EventEmitter;
 var defaultOptions = { port: 5558 };
 
@@ -37,24 +38,23 @@ function Plugin(){
 util.inherits(Plugin, EventEmitter);
 
 Plugin.prototype.onMessage = function(message){
-  var payload = message.payload;
-  this.emit('message', { devices: ['*'], topic: 'echo', payload: payload });
-  
-  if (this.banjoConnection) {
-    this.banjoConnection.write( JSON.stringify( {"cmd" : "data_input", "data" : payload} ) );
-  }
-
+  var payload = message.payload, self = this;
+  this.emit('message', { devices: ['*'], topic: 'echo', payload: payload });  
+  var connection = net.connect(options, function(){
+    self.sendMessage( message, connection );
+  });
 };
+
+
+Plugin.prototype.sendMessage = function(message, connection) { 
+  connection.write(JSON.stringify({"cmd" : "data_input", "data" : message}));
+  connection.end();  
+} 
+
 
 Plugin.prototype.onConfig = function(device){
   var self = this;
   self.setOptions(device.options || defaultOptions);
-  
-  if( self.banjoConnection ) {
-    self.banjoConnection.close();
-  }
-
-  self.banjoConnection = net.connect(self.options);
 };
 
 Plugin.prototype.setOptions = function(options){
