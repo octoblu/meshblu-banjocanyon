@@ -30,7 +30,7 @@ var OPTIONS_SCHEMA = {
 };
 
 function Plugin(){
-  this.options = {};
+  this.options = defaultOptions;
   this.messageSchema = MESSAGE_SCHEMA;
   this.optionsSchema = OPTIONS_SCHEMA;
   return this;
@@ -39,14 +39,14 @@ util.inherits(Plugin, EventEmitter);
 
 Plugin.prototype.onMessage = function(message){
   var payload = message.payload, self = this;
-  this.emit('message', { devices: ['*'], topic: 'echo', payload: payload });  
-  var connection = net.connect(options, function(){
+  this.emit('message', { devices: ['*'], topic: 'echo', payload: payload });
+  var connection = net.connect(self.options, function(){
     self.sendMessage( message, connection );
   });
 };
 
 
-Plugin.prototype.sendMessage = function(message, connection) { 
+Plugin.prototype.sendMessage = function(message, connection) {
   connection.write(JSON.stringify({"cmd" : "data_input", "data" : message}));
   connection.end();  
 } 
@@ -54,7 +54,7 @@ Plugin.prototype.sendMessage = function(message, connection) {
 
 Plugin.prototype.onConfig = function(device){
   var self = this;
-  self.setOptions(device.options || defaultOptions);
+  self.setOptions(defaultOptions);
 };
 
 Plugin.prototype.setOptions = function(options){
