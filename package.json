@@ -5,6 +5,7 @@
     "start": "node command.js"
   },
   "dependencies": {
+    "debug": "^2.1.0",
     "lodash": "^2.4.1",
     "skynet": "^1.1.1"
   },
