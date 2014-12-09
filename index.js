@@ -63,7 +63,7 @@ Plugin.prototype.createBanjoCanyonSocket = function(){
     try {    
      self.emit('message', { devices: ['*'], topic: 'message', payload: JSON.parse(messageString) });
     } catch(e) {
-      console.error('Failed to parse message', messageString);
+      debug('Failed to parse message', messageString);
     }
   });  
 };
