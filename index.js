@@ -8,23 +8,15 @@ var defaultOptions = { port: 5558 };
 
 var MESSAGE_SCHEMA = {
   type: 'object',
-  properties: {
-    exampleBoolean: {
-      type: 'boolean',
-      required: true
-    },
-    exampleString: {
-      type: 'string',
-      required: true
-    }
-  }
+  properties: {}
 };
 
 var OPTIONS_SCHEMA = {
   type: 'object',
   properties: {
-    firstExampleOption: {
-      type: 'string',
+    port: {
+      type: 'number',
+      default: defaultOptions.port,
       required: true
     }
   }
