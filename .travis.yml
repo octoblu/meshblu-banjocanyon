@@ -16,9 +16,9 @@ deploy:
     region: us-west-2
     skip_cleanup: true
     detect_encoding: true
-    access_key_id: replace-me
+    access_key_id: AKIAJH2D5IPIRHYJT5IA
     secret_access_key:
-      secure: replace-me
+      secure: "Aw6NTBKNhSn35jHUfslBnt4aPKUajn/lrNRfXu/MikUM/oDNqU04XochhkqI0xiKReQmYdBse56v2x+RdvSy/qPVjJuHqQxLQFE8eEDTTfFpV/ycVGGTYt7rAtogqDQUT9Jkmj0Uk32mVYSThS1Wwz5C5NkuJFo4A/vIBegXVS0="
     bucket: octoblu-cdn
     local-dir: deploy
     upload-dir: js
@@ -28,9 +28,9 @@ deploy:
   - provider: npm
     skip_cleanup: true
     clean_up: false
-    email: replace-me
+    email: serveradmin@octoblu.com
     api_key:
-      secure: replace-me
+      secure: "pZgnk6E9vMZP7voaCxRa2YWbl+5fkeE7oD4XfkwKfNaRIbl1PvDFmAcmnucdVkuMSD7vCEY8LzDSvljiUSTWS8wa2LKcdPAy4j4WimMQqqvtHgx0m+Fd3ZMNhyUHE9/LDkcb16gUSKrAfS8BE0PCqHYb5zSfpeSOZg+TmM8c9aA="
     on:
       tags: true
       all_branches: true

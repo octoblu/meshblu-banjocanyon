@@ -1,9 +1,9 @@
 'use strict';
-var util = require('util');
-var net = require('net');
-var _ = require('lodash');
-var debug = require('debug')('meshblu-banjocanyon');
-var EventEmitter = require('events').EventEmitter;
+var util           = require('util');
+var net            = require('net');
+var _              = require('lodash');
+var debug          = require('debug')('meshblu-banjocanyon');
+var EventEmitter   = require('events').EventEmitter;
 var defaultOptions = { port: 5558 };
 
 var MESSAGE_SCHEMA = {
@@ -41,8 +41,8 @@ Plugin.prototype.onMessage = function(message){
 
 Plugin.prototype.sendMessage = function(message, connection) {
   connection.write(JSON.stringify({"cmd" : "data_input", "data" : message}));
-  connection.end();  
-} 
+  connection.end();
+}
 
 Plugin.prototype.onConfig = function(device){
   var self = this;
@@ -60,12 +60,12 @@ Plugin.prototype.createBanjoCanyonSocket = function(){
   self.socket.on('data', function(messageBuffer){
     var messageString = messageBuffer.toString();
     debug('message from banjocanyon', messageString);
-    try {    
+    try {
      self.emit('message', { devices: ['*'], topic: 'message', payload: JSON.parse(messageString) });
     } catch(e) {
       debug('Failed to parse message', messageString);
     }
-  });  
+  });
 };
 
 Plugin.prototype.setOptions = function(options){
